@@ -1,0 +1,1 @@
+var json_Camionitinrant_19 = {"type":"FeatureCollection","name":"Camionitinrant_19","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":null,"nom":"Camion itinérant","fréquence":null,"jour":null,"Nom Bene":null},"geometry":{"type":"Point","coordinates":[55.525755781151297,-21.330552855562669]}}]}
