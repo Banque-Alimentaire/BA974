@@ -1,1 +1,1 @@
-var json_Atelierdetransformation_22 = {"type":"FeatureCollection","name":"Atelierdetransformation_22","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[]}
+var json_Atelierdetransformation_22 = {"type":"FeatureCollection","name":"Atelierdetransformation_22","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":null,"nom":"atelier de transformation"},"geometry":{"type":"Point","coordinates":[55.525725113483944,-21.330451065007196]}}]}
