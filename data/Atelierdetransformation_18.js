@@ -1,0 +1,1 @@
+var json_Atelierdetransformation_18 = {"type":"FeatureCollection","name":"Atelierdetransformation_18","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"id":null,"nom":"atelier de transformation"},"geometry":{"type":"Point","coordinates":[55.52543163972863,-21.3303918988777]}}]}
