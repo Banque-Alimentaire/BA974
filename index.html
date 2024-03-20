@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 1449px;
-            height: 782px;
+            width: 1452px;
+            height: 804px;
         }
         </style>
         <title>Banque Alimentaire 974</title>
@@ -42,37 +42,21 @@
         <script src="data/Propritairespauvresdominanterurale_12.js"></script>
         <script src="data/Urbainsprcairescumulantlesdifficults_13.js"></script>
         <script src="data/CommunesavecPAT_14.js"></script>
-        <script src="data/GMASProxiDon_15.js"></script>
+        <script src="data/GMSviaProxiDon_15.js"></script>
         <script src="data/Communesavec5000personnesaccueillies_16.js"></script>
         <script src="data/Communesavec5000personnesaccueillies_17.js"></script>
         <script src="data/Communesavec10000personnesaccueillies_18.js"></script>
         <script src="data/Communesavec30000personnesaccueillies_19.js"></script>
-        <script src="data/Camionitinrant_20.js"></script>
+        <script src="data/CamionEpicerieSocialeItinrante_20.js"></script>
         <script src="data/Atelierdetransformation_21.js"></script>
-        <script src="data/Distributionpicerie_22.js"></script>
+        <script src="data/Epiceriesociale_22.js"></script>
         <script src="data/Distributionrepas_23.js"></script>
         <script src="data/Distributioncolis_24.js"></script>
         <script src="data/BAM_25.js"></script>
         <script>
-        var highlightLayer;
-        function highlightFeature(e) {
-            highlightLayer = e.target;
-
-            if (e.target.feature.geometry.type === 'LineString') {
-              highlightLayer.setStyle({
-                color: '#ffffb1',
-              });
-            } else {
-              highlightLayer.setStyle({
-                fillColor: '#ffffb1',
-                fillOpacity: 1
-              });
-            }
-            highlightLayer.openPopup();
-        }
         var map = L.map('map', {
-            zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-21.5478427499419,54.97409804839869],[-20.838125593536788,56.2907143629092]]);
+            zoomControl:true, maxZoom:25, minZoom:1
+        })
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -100,6 +84,9 @@
         }, true);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
             map.setMaxBounds(map.getBounds());
         }
         map.createPane('pane_GoogleRoad_0');
@@ -109,27 +96,12 @@
             opacity: 1.0,
             attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
             minZoom: 1,
-            maxZoom: 28,
+            maxZoom: 25,
             minNativeZoom: 0,
             maxNativeZoom: 20
         });
         layer_GoogleRoad_0;
         function pop_Zonespeuoupashabites_1(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -184,21 +156,6 @@
         bounds_group.addLayer(layer_Zonespeuoupashabites_1);
         map.addLayer(layer_Zonespeuoupashabites_1);
         function pop_Communes_2(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Nom commune</th>\
@@ -244,21 +201,6 @@
         bounds_group.addLayer(layer_Communes_2);
         map.addLayer(layer_Communes_2);
         function pop_moinsde30_3(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -306,21 +248,6 @@
         });
         bounds_group.addLayer(layer_moinsde30_3);
         function pop_entre30et35_4(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -368,21 +295,6 @@
         });
         bounds_group.addLayer(layer_entre30et35_4);
         function pop_entre35et39_5(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -430,21 +342,6 @@
         });
         bounds_group.addLayer(layer_entre35et39_5);
         function pop_entre39et45_6(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -492,21 +389,6 @@
         });
         bounds_group.addLayer(layer_entre39et45_6);
         function pop_entre45et50_7(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
@@ -554,21 +436,6 @@
         });
         bounds_group.addLayer(layer_entre45et50_7);
         function pop_50etpluspauvret_8(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -616,21 +483,6 @@
         });
         bounds_group.addLayer(layer_50etpluspauvret_8);
         function pop_Lesplusaiss_9(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -678,21 +530,6 @@
         });
         bounds_group.addLayer(layer_Lesplusaiss_9);
         function pop_Moinspauvresloignsdescentresvilles_10(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -740,21 +577,6 @@
         });
         bounds_group.addLayer(layer_Moinspauvresloignsdescentresvilles_10);
         function pop_Vulnrablesprochesdescentresvilles_11(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -802,21 +624,6 @@
         });
         bounds_group.addLayer(layer_Vulnrablesprochesdescentresvilles_11);
         function pop_Propritairespauvresdominanterurale_12(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -864,21 +671,6 @@
         });
         bounds_group.addLayer(layer_Propritairespauvresdominanterurale_12);
         function pop_Urbainsprcairescumulantlesdifficults_13(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -926,21 +718,6 @@
         });
         bounds_group.addLayer(layer_Urbainsprcairescumulantlesdifficults_13);
         function pop_CommunesavecPAT_14(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="com_name_l"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_l'] !== null ? autolinker.link(feature.properties['com_name_l'].toLocaleString()) : '') + '</td>\
@@ -993,22 +770,7 @@
             style: style_CommunesavecPAT_14_0,
         });
         bounds_group.addLayer(layer_CommunesavecPAT_14);
-        function pop_GMASProxiDon_15(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
+        function pop_GMSviaProxiDon_15(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="Groupe"colspan="2"><strong>Groupe</strong><br />' + (feature.properties['Groupe'] !== null ? autolinker.link(feature.properties['Groupe'].toLocaleString()) : '') + '</td>\
@@ -1027,53 +789,38 @@
             popup.setContent(updatedContent);
         }
 
-        function style_GMASProxiDon_15_0() {
+        function style_GMSviaProxiDon_15_0() {
             return {
-                pane: 'pane_GMASProxiDon_15',
+                pane: 'pane_GMSviaProxiDon_15',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/GMASProxiDon_15.svg',
+            iconUrl: 'markers/GMSviaProxiDon_15.svg',
             iconSize: [26.599999999999998, 26.599999999999998]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_GMASProxiDon_15');
-        map.getPane('pane_GMASProxiDon_15').style.zIndex = 415;
-        map.getPane('pane_GMASProxiDon_15').style['mix-blend-mode'] = 'normal';
-        var layer_GMASProxiDon_15 = new L.geoJson(json_GMASProxiDon_15, {
+        map.createPane('pane_GMSviaProxiDon_15');
+        map.getPane('pane_GMSviaProxiDon_15').style.zIndex = 415;
+        map.getPane('pane_GMSviaProxiDon_15').style['mix-blend-mode'] = 'normal';
+        var layer_GMSviaProxiDon_15 = new L.geoJson(json_GMSviaProxiDon_15, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_GMASProxiDon_15',
-            layerName: 'layer_GMASProxiDon_15',
-            pane: 'pane_GMASProxiDon_15',
-            onEachFeature: pop_GMASProxiDon_15,
+            dataVar: 'json_GMSviaProxiDon_15',
+            layerName: 'layer_GMSviaProxiDon_15',
+            pane: 'pane_GMSviaProxiDon_15',
+            onEachFeature: pop_GMSviaProxiDon_15,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_GMASProxiDon_15_0(feature));
+                return L.marker(latlng, style_GMSviaProxiDon_15_0(feature));
             },
         });
-        bounds_group.addLayer(layer_GMASProxiDon_15);
+        bounds_group.addLayer(layer_GMSviaProxiDon_15);
         function pop_Communesavec5000personnesaccueillies_16(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="nom_comm"colspan="2"><strong>Commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(feature.properties['nom_comm'].toLocaleString()) : '') + '</td>\
@@ -1118,21 +865,6 @@
         });
         bounds_group.addLayer(layer_Communesavec5000personnesaccueillies_16);
         function pop_Communesavec5000personnesaccueillies_17(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
@@ -1177,21 +909,6 @@
         });
         bounds_group.addLayer(layer_Communesavec5000personnesaccueillies_17);
         function pop_Communesavec10000personnesaccueillies_18(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="nom_comm"colspan="2"><strong>Commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(feature.properties['nom_comm'].toLocaleString()) : '') + '</td>\
@@ -1236,21 +953,6 @@
         });
         bounds_group.addLayer(layer_Communesavec10000personnesaccueillies_18);
         function pop_Communesavec30000personnesaccueillies_19(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
@@ -1294,22 +996,7 @@
             style: style_Communesavec30000personnesaccueillies_19_0,
         });
         bounds_group.addLayer(layer_Communesavec30000personnesaccueillies_19);
-        function pop_Camionitinrant_20(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
+        function pop_CamionEpicerieSocialeItinrante_20(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="id"colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
@@ -1334,54 +1021,39 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Camionitinrant_20_0() {
+        function style_CamionEpicerieSocialeItinrante_20_0() {
             return {
-                pane: 'pane_Camionitinrant_20',
+                pane: 'pane_CamionEpicerieSocialeItinrante_20',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/Camionitinrant_20.svg',
+            iconUrl: 'markers/CamionEpicerieSocialeItinrante_20.svg',
             iconSize: [34.199999999999996, 34.199999999999996]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_Camionitinrant_20');
-        map.getPane('pane_Camionitinrant_20').style.zIndex = 420;
-        map.getPane('pane_Camionitinrant_20').style['mix-blend-mode'] = 'normal';
-        var layer_Camionitinrant_20 = new L.geoJson(json_Camionitinrant_20, {
+        map.createPane('pane_CamionEpicerieSocialeItinrante_20');
+        map.getPane('pane_CamionEpicerieSocialeItinrante_20').style.zIndex = 420;
+        map.getPane('pane_CamionEpicerieSocialeItinrante_20').style['mix-blend-mode'] = 'normal';
+        var layer_CamionEpicerieSocialeItinrante_20 = new L.geoJson(json_CamionEpicerieSocialeItinrante_20, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Camionitinrant_20',
-            layerName: 'layer_Camionitinrant_20',
-            pane: 'pane_Camionitinrant_20',
-            onEachFeature: pop_Camionitinrant_20,
+            dataVar: 'json_CamionEpicerieSocialeItinrante_20',
+            layerName: 'layer_CamionEpicerieSocialeItinrante_20',
+            pane: 'pane_CamionEpicerieSocialeItinrante_20',
+            onEachFeature: pop_CamionEpicerieSocialeItinrante_20,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_Camionitinrant_20_0(feature));
+                return L.marker(latlng, style_CamionEpicerieSocialeItinrante_20_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Camionitinrant_20);
-        map.addLayer(layer_Camionitinrant_20);
+        bounds_group.addLayer(layer_CamionEpicerieSocialeItinrante_20);
+        map.addLayer(layer_CamionEpicerieSocialeItinrante_20);
         function pop_Atelierdetransformation_21(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
@@ -1429,22 +1101,7 @@
         });
         bounds_group.addLayer(layer_Atelierdetransformation_21);
         map.addLayer(layer_Atelierdetransformation_21);
-        function pop_Distributionpicerie_22(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
+        function pop_Epiceriesociale_22(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="SIGLE"colspan="2"><strong>Sigle</strong><br />' + (feature.properties['SIGLE'] !== null ? autolinker.link(feature.properties['SIGLE'].toLocaleString()) : '') + '</td>\
@@ -1472,9 +1129,9 @@
             popup.setContent(updatedContent);
         }
 
-        function style_Distributionpicerie_22_0() {
+        function style_Epiceriesociale_22_0() {
             return {
-                pane: 'pane_Distributionpicerie_22',
+                pane: 'pane_Epiceriesociale_22',
                 radius: 4.4,
                 opacity: 1,
                 color: 'rgba(35,35,148,1.0)',
@@ -1488,41 +1145,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Distributionpicerie_22');
-        map.getPane('pane_Distributionpicerie_22').style.zIndex = 422;
-        map.getPane('pane_Distributionpicerie_22').style['mix-blend-mode'] = 'normal';
-        var layer_Distributionpicerie_22 = new L.geoJson(json_Distributionpicerie_22, {
+        map.createPane('pane_Epiceriesociale_22');
+        map.getPane('pane_Epiceriesociale_22').style.zIndex = 422;
+        map.getPane('pane_Epiceriesociale_22').style['mix-blend-mode'] = 'normal';
+        var layer_Epiceriesociale_22 = new L.geoJson(json_Epiceriesociale_22, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Distributionpicerie_22',
-            layerName: 'layer_Distributionpicerie_22',
-            pane: 'pane_Distributionpicerie_22',
-            onEachFeature: pop_Distributionpicerie_22,
+            dataVar: 'json_Epiceriesociale_22',
+            layerName: 'layer_Epiceriesociale_22',
+            pane: 'pane_Epiceriesociale_22',
+            onEachFeature: pop_Epiceriesociale_22,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Distributionpicerie_22_0(feature));
+                return L.circleMarker(latlng, style_Epiceriesociale_22_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Distributionpicerie_22);
+        bounds_group.addLayer(layer_Epiceriesociale_22);
         function pop_Distributionrepas_23(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="SIGLE"colspan="2"><strong>Sigle</strong><br />' + (feature.properties['SIGLE'] !== null ? autolinker.link(feature.properties['SIGLE'].toLocaleString()) : '') + '</td>\
@@ -1583,21 +1225,6 @@
         });
         bounds_group.addLayer(layer_Distributionrepas_23);
         function pop_Distributioncolis_24(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="SIGLE"colspan="2"><strong>Sigle</strong><br />' + (feature.properties['SIGLE'] !== null ? autolinker.link(feature.properties['SIGLE'].toLocaleString()) : '') + '</td>\
@@ -1658,21 +1285,6 @@
         });
         bounds_group.addLayer(layer_Distributioncolis_24);
         function pop_BAM_25(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="Nom"colspan="2"><strong>Nom</strong><br />' + (feature.properties['Nom'] !== null ? autolinker.link(feature.properties['Nom'].toLocaleString()) : '') + '</td>\
@@ -1747,7 +1359,7 @@
             };
             title.addTo(map);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/BAM_25.png" /> BAM': layer_BAM_25,'<img src="legend/Distributioncolis_24.png" /> Distribution colis': layer_Distributioncolis_24,'<img src="legend/Distributionrepas_23.png" /> Distribution repas': layer_Distributionrepas_23,'<img src="legend/Distributionpicerie_22.png" /> Distribution épicerie': layer_Distributionpicerie_22,'<img src="legend/Atelierdetransformation_21.png" /> Atelier de transformation': layer_Atelierdetransformation_21,'<img src="legend/Camionitinrant_20.png" /> Camion itinérant': layer_Camionitinrant_20,'<img src="legend/Communesavec30000personnesaccueillies_19.png" /> Communes avec + 30 000 personnes accueillies ': layer_Communesavec30000personnesaccueillies_19,'<img src="legend/Communesavec10000personnesaccueillies_18.png" /> Communes avec +10 000 personnes accueillies ': layer_Communesavec10000personnesaccueillies_18,'<img src="legend/Communesavec5000personnesaccueillies_17.png" /> Communes avec + 5 000 personnes accueillies ': layer_Communesavec5000personnesaccueillies_17,'<img src="legend/Communesavec5000personnesaccueillies_16.png" /> Communes avec - 5000 personnes accueillies ': layer_Communesavec5000personnesaccueillies_16,'<img src="legend/GMASProxiDon_15.png" /> GMAS-ProxiDon': layer_GMASProxiDon_15,'<img src="legend/CommunesavecPAT_14.png" /> Communes avec PAT': layer_CommunesavecPAT_14,'<img src="legend/Urbainsprcairescumulantlesdifficults_13.png" /> Urbains précaires cumulant les difficultés': layer_Urbainsprcairescumulantlesdifficults_13,'<img src="legend/Propritairespauvresdominanterurale_12.png" /> Propriétaires pauvres, à dominante rurale': layer_Propritairespauvresdominanterurale_12,'<img src="legend/Vulnrablesprochesdescentresvilles_11.png" /> Vulnérables, proches des centres-villes': layer_Vulnrablesprochesdescentresvilles_11,'<img src="legend/Moinspauvresloignsdescentresvilles_10.png" /> Moins pauvres, éloignés des centres-villes': layer_Moinspauvresloignsdescentresvilles_10,'<img src="legend/Lesplusaiss_9.png" /> Les plus aisés': layer_Lesplusaiss_9,'<img src="legend/50etpluspauvret_8.png" /> 50 % et plus ( pauvreté )': layer_50etpluspauvret_8,'<img src="legend/entre45et50_7.png" /> entre 45 et 50%': layer_entre45et50_7,'<img src="legend/entre39et45_6.png" /> entre 39 et 45 %': layer_entre39et45_6,'<img src="legend/entre35et39_5.png" /> entre 35 et 39 %': layer_entre35et39_5,'<img src="legend/entre30et35_4.png" /> entre 30 et 35 %': layer_entre30et35_4,'<img src="legend/moinsde30_3.png" /> moins de 30 %': layer_moinsde30_3,'<img src="legend/Communes_2.png" /> Communes ': layer_Communes_2,'<img src="legend/Zonespeuoupashabites_1.png" /> Zones peu ou pas habitées': layer_Zonespeuoupashabites_1,"Google Road": layer_GoogleRoad_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/BAM_25.png" /> BAM': layer_BAM_25,'<img src="legend/Distributioncolis_24.png" /> Distribution colis': layer_Distributioncolis_24,'<img src="legend/Distributionrepas_23.png" /> Distribution repas': layer_Distributionrepas_23,'<img src="legend/Epiceriesociale_22.png" /> Epicerie sociale': layer_Epiceriesociale_22,'<img src="legend/Atelierdetransformation_21.png" /> Atelier de transformation': layer_Atelierdetransformation_21,'<img src="legend/CamionEpicerieSocialeItinrante_20.png" /> Camion Epicerie Sociale Itinérante': layer_CamionEpicerieSocialeItinrante_20,'<img src="legend/Communesavec30000personnesaccueillies_19.png" /> Communes avec + 30 000 personnes accueillies ': layer_Communesavec30000personnesaccueillies_19,'<img src="legend/Communesavec10000personnesaccueillies_18.png" /> Communes avec +10 000 personnes accueillies ': layer_Communesavec10000personnesaccueillies_18,'<img src="legend/Communesavec5000personnesaccueillies_17.png" /> Communes avec + 5 000 personnes accueillies ': layer_Communesavec5000personnesaccueillies_17,'<img src="legend/Communesavec5000personnesaccueillies_16.png" /> Communes avec - 5000 personnes accueillies ': layer_Communesavec5000personnesaccueillies_16,'<img src="legend/GMSviaProxiDon_15.png" /> GMS via ProxiDon': layer_GMSviaProxiDon_15,'<img src="legend/CommunesavecPAT_14.png" /> Communes avec PAT': layer_CommunesavecPAT_14,'<img src="legend/Urbainsprcairescumulantlesdifficults_13.png" /> Urbains précaires cumulant les difficultés': layer_Urbainsprcairescumulantlesdifficults_13,'<img src="legend/Propritairespauvresdominanterurale_12.png" /> Propriétaires pauvres, à dominante rurale': layer_Propritairespauvresdominanterurale_12,'<img src="legend/Vulnrablesprochesdescentresvilles_11.png" /> Vulnérables, proches des centres-villes': layer_Vulnrablesprochesdescentresvilles_11,'<img src="legend/Moinspauvresloignsdescentresvilles_10.png" /> Moins pauvres, éloignés des centres-villes': layer_Moinspauvresloignsdescentresvilles_10,'<img src="legend/Lesplusaiss_9.png" /> Les plus aisés': layer_Lesplusaiss_9,'<img src="legend/50etpluspauvret_8.png" /> 50 % et plus ( pauvreté )': layer_50etpluspauvret_8,'<img src="legend/entre45et50_7.png" /> entre 45 et 50%': layer_entre45et50_7,'<img src="legend/entre39et45_6.png" /> entre 39 et 45 %': layer_entre39et45_6,'<img src="legend/entre35et39_5.png" /> entre 35 et 39 %': layer_entre35et39_5,'<img src="legend/entre30et35_4.png" /> entre 30 et 35 %': layer_entre30et35_4,'<img src="legend/moinsde30_3.png" /> moins de 30 %': layer_moinsde30_3,'<img src="legend/Communes_2.png" /> Communes ': layer_Communes_2,'<img src="legend/Zonespeuoupashabites_1.png" /> Zones peu ou pas habitées': layer_Zonespeuoupashabites_1,"Google Road": layer_GoogleRoad_0,},{collapsed:false}).addTo(map);
         map.on("zoomend", function(){
 
                 if (map.hasLayer(layer_Communes_2)) {
@@ -1787,15 +1399,15 @@
                         });
                     }
                 }
-        resetLabels([layer_Communes_2,layer_Camionitinrant_20,layer_Atelierdetransformation_21]);
+        resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
         map.on("zoomend", function(){
-            resetLabels([layer_Communes_2,layer_Camionitinrant_20,layer_Atelierdetransformation_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Communes_2,layer_Camionitinrant_20,layer_Atelierdetransformation_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Communes_2,layer_Camionitinrant_20,layer_Atelierdetransformation_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
         });
         </script>
     </body>
