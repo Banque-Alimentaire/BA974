@@ -1278,9 +1278,6 @@
         function pop_Distributioncolis_25(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['wkt_geom'] !== null ? autolinker.link(feature.properties['wkt_geom'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td class="visible-with-data" id="SIGLE"colspan="2"><strong>Sigle</strong><br />' + (feature.properties['SIGLE'] !== null ? autolinker.link(feature.properties['SIGLE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
