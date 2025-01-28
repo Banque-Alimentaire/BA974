@@ -1,0 +1,1 @@
+var json_CamionEpicerieSocialeItinrante_20 = {"type":"FeatureCollection","name":"CamionEpicerieSocialeItinrante_20","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"nom":"Camion itinérant"},"geometry":{"type":"Point","coordinates":[55.477771,-21.342704]}}]}
