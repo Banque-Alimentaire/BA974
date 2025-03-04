@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
         #map {
-            width: 1210px;
+            width: 1060px;
             height: 807px;
         }
         </style>
@@ -34,11 +34,11 @@
         <script src="data/Zonespeuoupashabites_1.js"></script>
         <script src="data/Communes_2.js"></script>
         <script src="data/Quartiers_3.js"></script>
-        <script src="data/moinsde30_4.js"></script>
-        <script src="data/entre30et35_5.js"></script>
-        <script src="data/entre35et40_6.js"></script>
-        <script src="data/entre40et45_7.js"></script>
-        <script src="data/50etplus_8.js"></script>
+        <script src="data/Populationvivantsousleseuildepauvretmoinsde30_4.js"></script>
+        <script src="data/Populationvivantsousleseuildepauvretentre30et35_5.js"></script>
+        <script src="data/Populationvivantsousleseuildepauvretentre35et40_6.js"></script>
+        <script src="data/Populationvivantsousleseuildepauvretentre40et45_7.js"></script>
+        <script src="data/Populationvivantsousleseuildepauvret50etplus_8.js"></script>
         <script src="data/Lesplusaiss_9.js"></script>
         <script src="data/Moinspauvresloignsdescentresvilles_10.js"></script>
         <script src="data/Vulnrablesprochesdescentresvilles_11.js"></script>
@@ -51,7 +51,7 @@
         <script src="data/Communesavec10000personnesaccueillies_18.js"></script>
         <script src="data/Communesavec30000personnesaccueillies_19.js"></script>
         <script src="data/CamionEpicerieSocialeItinrante_20.js"></script>
-        <script src="data/Atelierdetransformation_21.js"></script>
+        <script src="data/AtelierdetransformationdeFruitsetLgumes_21.js"></script>
         <script src="data/Epiceriesociale_22.js"></script>
         <script src="data/Repas_23.js"></script>
         <script src="data/Colis_24.js"></script>
@@ -59,7 +59,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:25, minZoom:1
-        }).fitBounds([[-21.63300071182609,54.779477899663036],[-20.69591918182609,56.185682232880424]]);
+        }).fitBounds([[-21.583564441762277,55.09449131798838],[-20.601497834001528,56.385207431045366]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -259,7 +259,7 @@
             style: style_Quartiers_3_0,
         });
         bounds_group.addLayer(layer_Quartiers_3);
-        function pop_moinsde30_4(feature, layer) {
+        function pop_Populationvivantsousleseuildepauvretmoinsde30_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -278,9 +278,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_moinsde30_4_0() {
+        function style_Populationvivantsousleseuildepauvretmoinsde30_4_0() {
             return {
-                pane: 'pane_moinsde30_4',
+                pane: 'pane_Populationvivantsousleseuildepauvretmoinsde30_4',
                 opacity: 1,
                 color: 'rgba(38,89,128,0.0)',
                 dashArray: '',
@@ -293,20 +293,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_moinsde30_4');
-        map.getPane('pane_moinsde30_4').style.zIndex = 404;
-        map.getPane('pane_moinsde30_4').style['mix-blend-mode'] = 'normal';
-        var layer_moinsde30_4 = new L.geoJson(json_moinsde30_4, {
+        map.createPane('pane_Populationvivantsousleseuildepauvretmoinsde30_4');
+        map.getPane('pane_Populationvivantsousleseuildepauvretmoinsde30_4').style.zIndex = 404;
+        map.getPane('pane_Populationvivantsousleseuildepauvretmoinsde30_4').style['mix-blend-mode'] = 'normal';
+        var layer_Populationvivantsousleseuildepauvretmoinsde30_4 = new L.geoJson(json_Populationvivantsousleseuildepauvretmoinsde30_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_moinsde30_4',
-            layerName: 'layer_moinsde30_4',
-            pane: 'pane_moinsde30_4',
-            onEachFeature: pop_moinsde30_4,
-            style: style_moinsde30_4_0,
+            dataVar: 'json_Populationvivantsousleseuildepauvretmoinsde30_4',
+            layerName: 'layer_Populationvivantsousleseuildepauvretmoinsde30_4',
+            pane: 'pane_Populationvivantsousleseuildepauvretmoinsde30_4',
+            onEachFeature: pop_Populationvivantsousleseuildepauvretmoinsde30_4,
+            style: style_Populationvivantsousleseuildepauvretmoinsde30_4_0,
         });
-        bounds_group.addLayer(layer_moinsde30_4);
-        function pop_entre30et35_5(feature, layer) {
+        bounds_group.addLayer(layer_Populationvivantsousleseuildepauvretmoinsde30_4);
+        function pop_Populationvivantsousleseuildepauvretentre30et35_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -325,9 +325,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_entre30et35_5_0() {
+        function style_Populationvivantsousleseuildepauvretentre30et35_5_0() {
             return {
-                pane: 'pane_entre30et35_5',
+                pane: 'pane_Populationvivantsousleseuildepauvretentre30et35_5',
                 opacity: 1,
                 color: 'rgba(71,141,199,0.0)',
                 dashArray: '',
@@ -340,20 +340,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_entre30et35_5');
-        map.getPane('pane_entre30et35_5').style.zIndex = 405;
-        map.getPane('pane_entre30et35_5').style['mix-blend-mode'] = 'normal';
-        var layer_entre30et35_5 = new L.geoJson(json_entre30et35_5, {
+        map.createPane('pane_Populationvivantsousleseuildepauvretentre30et35_5');
+        map.getPane('pane_Populationvivantsousleseuildepauvretentre30et35_5').style.zIndex = 405;
+        map.getPane('pane_Populationvivantsousleseuildepauvretentre30et35_5').style['mix-blend-mode'] = 'normal';
+        var layer_Populationvivantsousleseuildepauvretentre30et35_5 = new L.geoJson(json_Populationvivantsousleseuildepauvretentre30et35_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_entre30et35_5',
-            layerName: 'layer_entre30et35_5',
-            pane: 'pane_entre30et35_5',
-            onEachFeature: pop_entre30et35_5,
-            style: style_entre30et35_5_0,
+            dataVar: 'json_Populationvivantsousleseuildepauvretentre30et35_5',
+            layerName: 'layer_Populationvivantsousleseuildepauvretentre30et35_5',
+            pane: 'pane_Populationvivantsousleseuildepauvretentre30et35_5',
+            onEachFeature: pop_Populationvivantsousleseuildepauvretentre30et35_5,
+            style: style_Populationvivantsousleseuildepauvretentre30et35_5_0,
         });
-        bounds_group.addLayer(layer_entre30et35_5);
-        function pop_entre35et40_6(feature, layer) {
+        bounds_group.addLayer(layer_Populationvivantsousleseuildepauvretentre30et35_5);
+        function pop_Populationvivantsousleseuildepauvretentre35et40_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -372,9 +372,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_entre35et40_6_0() {
+        function style_Populationvivantsousleseuildepauvretentre35et40_6_0() {
             return {
-                pane: 'pane_entre35et40_6',
+                pane: 'pane_Populationvivantsousleseuildepauvretentre35et40_6',
                 opacity: 1,
                 color: 'rgba(229,196,182,0.0)',
                 dashArray: '',
@@ -387,20 +387,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_entre35et40_6');
-        map.getPane('pane_entre35et40_6').style.zIndex = 406;
-        map.getPane('pane_entre35et40_6').style['mix-blend-mode'] = 'normal';
-        var layer_entre35et40_6 = new L.geoJson(json_entre35et40_6, {
+        map.createPane('pane_Populationvivantsousleseuildepauvretentre35et40_6');
+        map.getPane('pane_Populationvivantsousleseuildepauvretentre35et40_6').style.zIndex = 406;
+        map.getPane('pane_Populationvivantsousleseuildepauvretentre35et40_6').style['mix-blend-mode'] = 'normal';
+        var layer_Populationvivantsousleseuildepauvretentre35et40_6 = new L.geoJson(json_Populationvivantsousleseuildepauvretentre35et40_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_entre35et40_6',
-            layerName: 'layer_entre35et40_6',
-            pane: 'pane_entre35et40_6',
-            onEachFeature: pop_entre35et40_6,
-            style: style_entre35et40_6_0,
+            dataVar: 'json_Populationvivantsousleseuildepauvretentre35et40_6',
+            layerName: 'layer_Populationvivantsousleseuildepauvretentre35et40_6',
+            pane: 'pane_Populationvivantsousleseuildepauvretentre35et40_6',
+            onEachFeature: pop_Populationvivantsousleseuildepauvretentre35et40_6,
+            style: style_Populationvivantsousleseuildepauvretentre35et40_6_0,
         });
-        bounds_group.addLayer(layer_entre35et40_6);
-        function pop_entre40et45_7(feature, layer) {
+        bounds_group.addLayer(layer_Populationvivantsousleseuildepauvretentre35et40_6);
+        function pop_Populationvivantsousleseuildepauvretentre40et45_7(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
@@ -419,9 +419,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_entre40et45_7_0() {
+        function style_Populationvivantsousleseuildepauvretentre40et45_7_0() {
             return {
-                pane: 'pane_entre40et45_7',
+                pane: 'pane_Populationvivantsousleseuildepauvretentre40et45_7',
                 opacity: 1,
                 color: 'rgba(255,94,25,0.0)',
                 dashArray: '',
@@ -434,20 +434,20 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_entre40et45_7');
-        map.getPane('pane_entre40et45_7').style.zIndex = 407;
-        map.getPane('pane_entre40et45_7').style['mix-blend-mode'] = 'normal';
-        var layer_entre40et45_7 = new L.geoJson(json_entre40et45_7, {
+        map.createPane('pane_Populationvivantsousleseuildepauvretentre40et45_7');
+        map.getPane('pane_Populationvivantsousleseuildepauvretentre40et45_7').style.zIndex = 407;
+        map.getPane('pane_Populationvivantsousleseuildepauvretentre40et45_7').style['mix-blend-mode'] = 'normal';
+        var layer_Populationvivantsousleseuildepauvretentre40et45_7 = new L.geoJson(json_Populationvivantsousleseuildepauvretentre40et45_7, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_entre40et45_7',
-            layerName: 'layer_entre40et45_7',
-            pane: 'pane_entre40et45_7',
-            onEachFeature: pop_entre40et45_7,
-            style: style_entre40et45_7_0,
+            dataVar: 'json_Populationvivantsousleseuildepauvretentre40et45_7',
+            layerName: 'layer_Populationvivantsousleseuildepauvretentre40et45_7',
+            pane: 'pane_Populationvivantsousleseuildepauvretentre40et45_7',
+            onEachFeature: pop_Populationvivantsousleseuildepauvretentre40et45_7,
+            style: style_Populationvivantsousleseuildepauvretentre40et45_7_0,
         });
-        bounds_group.addLayer(layer_entre40et45_7);
-        function pop_50etplus_8(feature, layer) {
+        bounds_group.addLayer(layer_Populationvivantsousleseuildepauvretentre40et45_7);
+        function pop_Populationvivantsousleseuildepauvret50etplus_8(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
@@ -466,9 +466,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_50etplus_8_0() {
+        function style_Populationvivantsousleseuildepauvret50etplus_8_0() {
             return {
-                pane: 'pane_50etplus_8',
+                pane: 'pane_Populationvivantsousleseuildepauvret50etplus_8',
                 opacity: 1,
                 color: 'rgba(190,72,4,0.0)',
                 dashArray: '',
@@ -481,19 +481,19 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_50etplus_8');
-        map.getPane('pane_50etplus_8').style.zIndex = 408;
-        map.getPane('pane_50etplus_8').style['mix-blend-mode'] = 'normal';
-        var layer_50etplus_8 = new L.geoJson(json_50etplus_8, {
+        map.createPane('pane_Populationvivantsousleseuildepauvret50etplus_8');
+        map.getPane('pane_Populationvivantsousleseuildepauvret50etplus_8').style.zIndex = 408;
+        map.getPane('pane_Populationvivantsousleseuildepauvret50etplus_8').style['mix-blend-mode'] = 'normal';
+        var layer_Populationvivantsousleseuildepauvret50etplus_8 = new L.geoJson(json_Populationvivantsousleseuildepauvret50etplus_8, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_50etplus_8',
-            layerName: 'layer_50etplus_8',
-            pane: 'pane_50etplus_8',
-            onEachFeature: pop_50etplus_8,
-            style: style_50etplus_8_0,
+            dataVar: 'json_Populationvivantsousleseuildepauvret50etplus_8',
+            layerName: 'layer_Populationvivantsousleseuildepauvret50etplus_8',
+            pane: 'pane_Populationvivantsousleseuildepauvret50etplus_8',
+            onEachFeature: pop_Populationvivantsousleseuildepauvret50etplus_8,
+            style: style_Populationvivantsousleseuildepauvret50etplus_8_0,
         });
-        bounds_group.addLayer(layer_50etplus_8);
+        bounds_group.addLayer(layer_Populationvivantsousleseuildepauvret50etplus_8);
         function pop_Lesplusaiss_9(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -1041,13 +1041,10 @@
         });
         bounds_group.addLayer(layer_CamionEpicerieSocialeItinrante_20);
         map.addLayer(layer_CamionEpicerieSocialeItinrante_20);
-        function pop_Atelierdetransformation_21(feature, layer) {
+        function pop_AtelierdetransformationdeFruitsetLgumes_21(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['Projet'] !== null ? autolinker.link(feature.properties['Projet'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -1057,38 +1054,38 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Atelierdetransformation_21_0() {
+        function style_AtelierdetransformationdeFruitsetLgumes_21_0() {
             return {
-                pane: 'pane_Atelierdetransformation_21',
+                pane: 'pane_AtelierdetransformationdeFruitsetLgumes_21',
         rotationAngle: 0.0,
         rotationOrigin: 'center center',
         icon: L.icon({
-            iconUrl: 'markers/Atelierdetransformation_21.svg',
+            iconUrl: 'markers/AtelierdetransformationdeFruitsetLgumes_21.svg',
             iconSize: [25.88142, 25.88142]
         }),
                 interactive: true,
             }
         }
-        map.createPane('pane_Atelierdetransformation_21');
-        map.getPane('pane_Atelierdetransformation_21').style.zIndex = 421;
-        map.getPane('pane_Atelierdetransformation_21').style['mix-blend-mode'] = 'normal';
-        var layer_Atelierdetransformation_21 = new L.geoJson(json_Atelierdetransformation_21, {
+        map.createPane('pane_AtelierdetransformationdeFruitsetLgumes_21');
+        map.getPane('pane_AtelierdetransformationdeFruitsetLgumes_21').style.zIndex = 421;
+        map.getPane('pane_AtelierdetransformationdeFruitsetLgumes_21').style['mix-blend-mode'] = 'normal';
+        var layer_AtelierdetransformationdeFruitsetLgumes_21 = new L.geoJson(json_AtelierdetransformationdeFruitsetLgumes_21, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Atelierdetransformation_21',
-            layerName: 'layer_Atelierdetransformation_21',
-            pane: 'pane_Atelierdetransformation_21',
-            onEachFeature: pop_Atelierdetransformation_21,
+            dataVar: 'json_AtelierdetransformationdeFruitsetLgumes_21',
+            layerName: 'layer_AtelierdetransformationdeFruitsetLgumes_21',
+            pane: 'pane_AtelierdetransformationdeFruitsetLgumes_21',
+            onEachFeature: pop_AtelierdetransformationdeFruitsetLgumes_21,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.marker(latlng, style_Atelierdetransformation_21_0(feature));
+                return L.marker(latlng, style_AtelierdetransformationdeFruitsetLgumes_21_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Atelierdetransformation_21);
-        map.addLayer(layer_Atelierdetransformation_21);
+        bounds_group.addLayer(layer_AtelierdetransformationdeFruitsetLgumes_21);
+        map.addLayer(layer_AtelierdetransformationdeFruitsetLgumes_21);
         function pop_Epiceriesociale_22(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
@@ -1332,7 +1329,7 @@
             {label: '<img src="legend/Colis_24.png" /> Colis', layer: layer_Colis_24},
             {label: '<img src="legend/Repas_23.png" /> Repas', layer: layer_Repas_23},
             {label: '<img src="legend/Epiceriesociale_22.png" /> Epicerie sociale', layer: layer_Epiceriesociale_22},
-            {label: '<img src="legend/Atelierdetransformation_21.png" /> Atelier de transformation', layer: layer_Atelierdetransformation_21},
+            {label: '<img src="legend/AtelierdetransformationdeFruitsetLgumes_21.png" />  Atelier de transformation de Fruits et Légumes', layer: layer_AtelierdetransformationdeFruitsetLgumes_21},
             {label: '<img src="legend/CamionEpicerieSocialeItinrante_20.png" /> Camion Epicerie Sociale Itinérante', layer: layer_CamionEpicerieSocialeItinrante_20},
             {label: '<img src="legend/Communesavec30000personnesaccueillies_19.png" /> Communes avec + 30 000 personnes accueillies ', layer: layer_Communesavec30000personnesaccueillies_19},
             {label: '<img src="legend/Communesavec10000personnesaccueillies_18.png" /> Communes avec +10 000 personnes accueillies ', layer: layer_Communesavec10000personnesaccueillies_18},
@@ -1345,11 +1342,11 @@
             {label: '<img src="legend/Vulnrablesprochesdescentresvilles_11.png" /> Vulnérables, proches des centres-villes', layer: layer_Vulnrablesprochesdescentresvilles_11},
             {label: '<img src="legend/Moinspauvresloignsdescentresvilles_10.png" /> Moins pauvres, éloignés des centres-villes', layer: layer_Moinspauvresloignsdescentresvilles_10},
             {label: '<img src="legend/Lesplusaiss_9.png" /> Les plus aisés', layer: layer_Lesplusaiss_9},
-            {label: '<img src="legend/50etplus_8.png" /> 50 % et plus ', layer: layer_50etplus_8},
-            {label: '<img src="legend/entre40et45_7.png" /> entre 40 et 45%', layer: layer_entre40et45_7},
-            {label: '<img src="legend/entre35et40_6.png" /> entre 35 et 40 %', layer: layer_entre35et40_6},
-            {label: '<img src="legend/entre30et35_5.png" /> entre 30 et 35 %', layer: layer_entre30et35_5},
-            {label: '<img src="legend/moinsde30_4.png" /> moins de 30 %', layer: layer_moinsde30_4},
+            {label: '<img src="legend/Populationvivantsousleseuildepauvret50etplus_8.png" /> Population vivant sous le seuil de pauvreté: 50 % et plus ', layer: layer_Populationvivantsousleseuildepauvret50etplus_8},
+            {label: '<img src="legend/Populationvivantsousleseuildepauvretentre40et45_7.png" /> Population vivant sous le seuil de pauvreté : entre 40 et 45%', layer: layer_Populationvivantsousleseuildepauvretentre40et45_7},
+            {label: '<img src="legend/Populationvivantsousleseuildepauvretentre35et40_6.png" /> Population vivant sous le seuil de pauvreté : entre 35 et 40 %', layer: layer_Populationvivantsousleseuildepauvretentre35et40_6},
+            {label: '<img src="legend/Populationvivantsousleseuildepauvretentre30et35_5.png" /> Population vivant sous le seuil de pauvreté : entre 30 et 35 %', layer: layer_Populationvivantsousleseuildepauvretentre30et35_5},
+            {label: '<img src="legend/Populationvivantsousleseuildepauvretmoinsde30_4.png" /> Population vivant sous le seuil de pauvreté : moins de 30 %', layer: layer_Populationvivantsousleseuildepauvretmoinsde30_4},
             {label: '<img src="legend/Quartiers_3.png" /> Quartiers', layer: layer_Quartiers_3},
             {label: '<img src="legend/Communes_2.png" /> Communes ', layer: layer_Communes_2},
             {label: '<img src="legend/Zonespeuoupashabites_1.png" /> Zones peu ou pas habitées', layer: layer_Zonespeuoupashabites_1},
@@ -1453,15 +1450,15 @@
                         });
                     }
                 }
-        resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
+        resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
         map.on("zoomend", function(){
-            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_Atelierdetransformation_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
         });
         </script>
     </body>
