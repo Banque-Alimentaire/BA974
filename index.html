@@ -11,9 +11,11 @@
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <style>
-        #map {
-            width: 1060px;
-            height: 807px;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
         }
         </style>
         <title>Banque Alimentaire 974</title>
@@ -50,16 +52,16 @@
         <script src="data/Communesavec5000personnesaccueillies_17.js"></script>
         <script src="data/Communesavec10000personnesaccueillies_18.js"></script>
         <script src="data/Communesavec30000personnesaccueillies_19.js"></script>
-        <script src="data/CamionEpicerieSocialeItinrante_20.js"></script>
-        <script src="data/AtelierdetransformationdeFruitsetLgumes_21.js"></script>
-        <script src="data/Epiceriesociale_22.js"></script>
-        <script src="data/Repas_23.js"></script>
-        <script src="data/Colis_24.js"></script>
+        <script src="data/Repas_20.js"></script>
+        <script src="data/Epiceriessociales_21.js"></script>
+        <script src="data/Colis_22.js"></script>
+        <script src="data/CamionEpicerieSocialeItinrante_23.js"></script>
+        <script src="data/AtelierdetransformationdeFruitsetLgumes_24.js"></script>
         <script src="data/BAM_25.js"></script>
         <script>
         var map = L.map('map', {
-            zoomControl:false, maxZoom:25, minZoom:1
-        }).fitBounds([[-21.583564441762277,55.09449131798838],[-20.601497834001528,56.385207431045366]]);
+            zoomControl:false, maxZoom:20, minZoom:1
+        }).fitBounds([[-21.426721803581128,55.16292840150672],[-20.758855690961877,55.99067417775808]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -105,7 +107,7 @@
             opacity: 1.0,
             attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
             minZoom: 1,
-            maxZoom: 25,
+            maxZoom: 20,
             minNativeZoom: 0,
             maxNativeZoom: 20
         });
@@ -113,19 +115,10 @@
         function pop_Zonespeuoupashabites_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="iris_type"colspan="2"><strong>Typologie iris </strong><br />' + (feature.properties['iris_type'] !== null ? autolinker.link(feature.properties['iris_type'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="com_code"colspan="2"><strong>Code</strong><br />' + (feature.properties['com_code'] !== null ? autolinker.link(feature.properties['com_code'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="iris_name"colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(feature.properties['iris_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name" colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(String(feature.properties['iris_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -167,12 +160,10 @@
         function pop_Communes_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Nom commune</th>\
-                        <td class="visible-with-data" id="nom_comm">' + (feature.properties['nom_comm'] !== null ? autolinker.link(feature.properties['nom_comm'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="nom_comm" colspan="2"><strong>Nom commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(String(feature.properties['nom_comm']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Population (en milliers) </th>\
-                        <td class="visible-with-data" id="population">' + (feature.properties['population'] !== null ? autolinker.link(feature.properties['population'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="population" colspan="2"><strong>Population (en milliers) </strong><br />' + (feature.properties['population'] !== null ? autolinker.link(String(feature.properties['population']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -212,16 +203,16 @@
         function pop_Quartiers_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_name_"colspan="2"><strong>Quartier</strong><br />' + (feature.properties['iris_name_'] !== null ? autolinker.link(feature.properties['iris_name_'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name_" colspan="2"><strong>Quartier</strong><br />' + (feature.properties['iris_name_'] !== null ? autolinker.link(String(feature.properties['iris_name_']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_type"colspan="2"><strong>Type </strong><br />' + (feature.properties['iris_type'] !== null ? autolinker.link(feature.properties['iris_type'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_type" colspan="2"><strong>Type </strong><br />' + (feature.properties['iris_type'] !== null ? autolinker.link(String(feature.properties['iris_type']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -262,13 +253,13 @@
         function pop_Populationvivantsousleseuildepauvretmoinsde30_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name_u"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_u'] !== null ? autolinker.link(feature.properties['com_name_u'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name_u" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_u'] !== null ? autolinker.link(String(feature.properties['com_name_u']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="pauvreté"colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(feature.properties['pauvreté'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="pauvreté" colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(String(feature.properties['pauvreté']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -309,13 +300,13 @@
         function pop_Populationvivantsousleseuildepauvretentre30et35_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name_u"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_u'] !== null ? autolinker.link(feature.properties['com_name_u'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name_u" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_u'] !== null ? autolinker.link(String(feature.properties['com_name_u']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="pauvreté"colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(feature.properties['pauvreté'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="pauvreté" colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(String(feature.properties['pauvreté']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -356,13 +347,13 @@
         function pop_Populationvivantsousleseuildepauvretentre35et40_6(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name_u"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_u'] !== null ? autolinker.link(feature.properties['com_name_u'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name_u" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_u'] !== null ? autolinker.link(String(feature.properties['com_name_u']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="pauvreté"colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(feature.properties['pauvreté'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="pauvreté" colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(String(feature.properties['pauvreté']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -403,13 +394,13 @@
         function pop_Populationvivantsousleseuildepauvretentre40et45_7(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="pauvreté"colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(feature.properties['pauvreté'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="pauvreté" colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté'] !== null ? autolinker.link(String(feature.properties['pauvreté']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -450,13 +441,13 @@
         function pop_Populationvivantsousleseuildepauvret50etplus_8(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="pauvreté commune 2018_Taux de pauvret�-Ensemble (%)"colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté commune 2018_Taux de pauvret�-Ensemble (%)'] !== null ? autolinker.link(feature.properties['pauvreté commune 2018_Taux de pauvret�-Ensemble (%)'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="pauvreté commune 2018_Taux de pauvret�-Ensemble (%)" colspan="2"><strong>Taux de pauvreté (%)</strong><br />' + (feature.properties['pauvreté commune 2018_Taux de pauvret�-Ensemble (%)'] !== null ? autolinker.link(String(feature.properties['pauvreté commune 2018_Taux de pauvret�-Ensemble (%)']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -497,13 +488,13 @@
         function pop_Lesplusaiss_9(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_name"colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(feature.properties['iris_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name" colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(String(feature.properties['iris_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -544,13 +535,13 @@
         function pop_Moinspauvresloignsdescentresvilles_10(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_name"colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(feature.properties['iris_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name" colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(String(feature.properties['iris_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -591,13 +582,13 @@
         function pop_Vulnrablesprochesdescentresvilles_11(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_name"colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(feature.properties['iris_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name" colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(String(feature.properties['iris_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -638,13 +629,13 @@
         function pop_Propritairespauvresdominanterurale_12(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_name"colspan="2"><strong>Nom iris</strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(feature.properties['iris_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name" colspan="2"><strong>Nom iris</strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(String(feature.properties['iris_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -685,13 +676,13 @@
         function pop_Urbainsprcairescumulantlesdifficults_13(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="epci_name"colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(feature.properties['epci_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="epci_name" colspan="2"><strong>EPCI</strong><br />' + (feature.properties['epci_name'] !== null ? autolinker.link(String(feature.properties['epci_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="iris_name"colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(feature.properties['iris_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="iris_name" colspan="2"><strong>Nom iris </strong><br />' + (feature.properties['iris_name'] !== null ? autolinker.link(String(feature.properties['iris_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -732,19 +723,19 @@
         function pop_CommunesavecPAT_14(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name_l"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_l'] !== null ? autolinker.link(feature.properties['com_name_l'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name_l" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name_l'] !== null ? autolinker.link(String(feature.properties['com_name_l']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Nom PAT"colspan="2"><strong>Nom PAT</strong><br />' + (feature.properties['Nom PAT'] !== null ? autolinker.link(feature.properties['Nom PAT'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Nom PAT" colspan="2"><strong>Nom PAT</strong><br />' + (feature.properties['Nom PAT'] !== null ? autolinker.link(String(feature.properties['Nom PAT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="NomPorteur"colspan="2"><strong>Nom du porteur </strong><br />' + (feature.properties['NomPorteur'] !== null ? autolinker.link(feature.properties['NomPorteur'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="NomPorteur" colspan="2"><strong>Nom du porteur </strong><br />' + (feature.properties['NomPorteur'] !== null ? autolinker.link(String(feature.properties['NomPorteur']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Adresse"colspan="2"><strong>Adresse</strong><br />' + (feature.properties['Adresse'] !== null ? autolinker.link(feature.properties['Adresse'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Adresse" colspan="2"><strong>Adresse</strong><br />' + (feature.properties['Adresse'] !== null ? autolinker.link(String(feature.properties['Adresse']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="TypPorteur"colspan="2"><strong>Type de porteur </strong><br />' + (feature.properties['TypPorteur'] !== null ? autolinker.link(feature.properties['TypPorteur'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="TypPorteur" colspan="2"><strong>Type de porteur </strong><br />' + (feature.properties['TypPorteur'] !== null ? autolinker.link(String(feature.properties['TypPorteur']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -785,13 +776,13 @@
         function pop_GMSviaProxiDon_15(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="Groupe"colspan="2"><strong>Groupe</strong><br />' + (feature.properties['Groupe'] !== null ? autolinker.link(feature.properties['Groupe'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Groupe" colspan="2"><strong>Groupe</strong><br />' + (feature.properties['Groupe'] !== null ? autolinker.link(String(feature.properties['Groupe']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Nom"colspan="2"><strong>Nom</strong><br />' + (feature.properties['Nom'] !== null ? autolinker.link(feature.properties['Nom'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Nom" colspan="2"><strong>Nom</strong><br />' + (feature.properties['Nom'] !== null ? autolinker.link(String(feature.properties['Nom']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Adresse"colspan="2"><strong>Adresse</strong><br />' + (feature.properties['Adresse'] !== null ? autolinker.link(feature.properties['Adresse'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Adresse" colspan="2"><strong>Adresse</strong><br />' + (feature.properties['Adresse'] !== null ? autolinker.link(String(feature.properties['Adresse']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -835,7 +826,7 @@
         function pop_Communesavec5000personnesaccueillies_16(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="nom_comm"colspan="2"><strong>Commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(feature.properties['nom_comm'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="nom_comm" colspan="2"><strong>Commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(String(feature.properties['nom_comm']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -876,7 +867,7 @@
         function pop_Communesavec5000personnesaccueillies_17(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -917,7 +908,7 @@
         function pop_Communesavec10000personnesaccueillies_18(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="nom_comm"colspan="2"><strong>Commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(feature.properties['nom_comm'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="nom_comm" colspan="2"><strong>Commune</strong><br />' + (feature.properties['nom_comm'] !== null ? autolinker.link(String(feature.properties['nom_comm']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -958,7 +949,7 @@
         function pop_Communesavec30000personnesaccueillies_19(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="com_name"colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(feature.properties['com_name'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="com_name" colspan="2"><strong>Commune</strong><br />' + (feature.properties['com_name'] !== null ? autolinker.link(String(feature.properties['com_name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -996,10 +987,19 @@
             style: style_Communesavec30000personnesaccueillies_19_0,
         });
         bounds_group.addLayer(layer_Communesavec30000personnesaccueillies_19);
-        function pop_CamionEpicerieSocialeItinrante_20(feature, layer) {
+        function pop_Repas_20(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Associatio" colspan="2"><strong>Association</strong><br />' + (feature.properties['Associatio'] !== null ? autolinker.link(String(feature.properties['Associatio']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="Lieu de di" colspan="2"><strong>Lieu de distribution</strong><br />' + (feature.properties['Lieu de di'] !== null ? autolinker.link(String(feature.properties['Lieu de di']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="Type de di" colspan="2"><strong>Type de distribution</strong><br />' + (feature.properties['Type de di'] !== null ? autolinker.link(String(feature.properties['Type de di']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="Ville" colspan="2"><strong>Ville</strong><br />' + (feature.properties['Ville'] !== null ? autolinker.link(String(feature.properties['Ville']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -1009,166 +1009,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_CamionEpicerieSocialeItinrante_20_0() {
+        function style_Repas_20_0() {
             return {
-                pane: 'pane_CamionEpicerieSocialeItinrante_20',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/CamionEpicerieSocialeItinrante_20.svg',
-            iconSize: [34.199999999999996, 34.199999999999996]
-        }),
-                interactive: true,
-            }
-        }
-        map.createPane('pane_CamionEpicerieSocialeItinrante_20');
-        map.getPane('pane_CamionEpicerieSocialeItinrante_20').style.zIndex = 420;
-        map.getPane('pane_CamionEpicerieSocialeItinrante_20').style['mix-blend-mode'] = 'normal';
-        var layer_CamionEpicerieSocialeItinrante_20 = new L.geoJson(json_CamionEpicerieSocialeItinrante_20, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_CamionEpicerieSocialeItinrante_20',
-            layerName: 'layer_CamionEpicerieSocialeItinrante_20',
-            pane: 'pane_CamionEpicerieSocialeItinrante_20',
-            onEachFeature: pop_CamionEpicerieSocialeItinrante_20,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.marker(latlng, style_CamionEpicerieSocialeItinrante_20_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_CamionEpicerieSocialeItinrante_20);
-        map.addLayer(layer_CamionEpicerieSocialeItinrante_20);
-        function pop_AtelierdetransformationdeFruitsetLgumes_21(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['Projet'] !== null ? autolinker.link(feature.properties['Projet'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_AtelierdetransformationdeFruitsetLgumes_21_0() {
-            return {
-                pane: 'pane_AtelierdetransformationdeFruitsetLgumes_21',
-        rotationAngle: 0.0,
-        rotationOrigin: 'center center',
-        icon: L.icon({
-            iconUrl: 'markers/AtelierdetransformationdeFruitsetLgumes_21.svg',
-            iconSize: [25.88142, 25.88142]
-        }),
-                interactive: true,
-            }
-        }
-        map.createPane('pane_AtelierdetransformationdeFruitsetLgumes_21');
-        map.getPane('pane_AtelierdetransformationdeFruitsetLgumes_21').style.zIndex = 421;
-        map.getPane('pane_AtelierdetransformationdeFruitsetLgumes_21').style['mix-blend-mode'] = 'normal';
-        var layer_AtelierdetransformationdeFruitsetLgumes_21 = new L.geoJson(json_AtelierdetransformationdeFruitsetLgumes_21, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_AtelierdetransformationdeFruitsetLgumes_21',
-            layerName: 'layer_AtelierdetransformationdeFruitsetLgumes_21',
-            pane: 'pane_AtelierdetransformationdeFruitsetLgumes_21',
-            onEachFeature: pop_AtelierdetransformationdeFruitsetLgumes_21,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.marker(latlng, style_AtelierdetransformationdeFruitsetLgumes_21_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_AtelierdetransformationdeFruitsetLgumes_21);
-        map.addLayer(layer_AtelierdetransformationdeFruitsetLgumes_21);
-        function pop_Epiceriesociale_22(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td class="visible-with-data" id="NOM DE LA"colspan="2"><strong>Association</strong><br />' + (feature.properties['NOM DE LA'] !== null ? autolinker.link(feature.properties['NOM DE LA'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="LIEU DE DI"colspan="2"><strong>Lieu de distribution</strong><br />' + (feature.properties['LIEU DE DI'] !== null ? autolinker.link(feature.properties['LIEU DE DI'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="ACTIVITE"colspan="2"><strong>Type de distribution</strong><br />' + (feature.properties['ACTIVITE'] !== null ? autolinker.link(feature.properties['ACTIVITE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="TERRITOIRE"colspan="2"><strong>Ville</strong><br />' + (feature.properties['TERRITOIRE'] !== null ? autolinker.link(feature.properties['TERRITOIRE'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_Epiceriesociale_22_0() {
-            return {
-                pane: 'pane_Epiceriesociale_22',
-                radius: 4.4,
-                opacity: 1,
-                color: 'rgba(35,35,148,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 2.0,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(10,25,231,1.0)',
-                interactive: true,
-            }
-        }
-        map.createPane('pane_Epiceriesociale_22');
-        map.getPane('pane_Epiceriesociale_22').style.zIndex = 422;
-        map.getPane('pane_Epiceriesociale_22').style['mix-blend-mode'] = 'normal';
-        var layer_Epiceriesociale_22 = new L.geoJson(json_Epiceriesociale_22, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Epiceriesociale_22',
-            layerName: 'layer_Epiceriesociale_22',
-            pane: 'pane_Epiceriesociale_22',
-            onEachFeature: pop_Epiceriesociale_22,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.circleMarker(latlng, style_Epiceriesociale_22_0(feature));
-            },
-        });
-        bounds_group.addLayer(layer_Epiceriesociale_22);
-        map.addLayer(layer_Epiceriesociale_22);
-        function pop_Repas_23(feature, layer) {
-            var popupContent = '<table>\
-                    <tr>\
-                        <td class="visible-with-data" id="Associatio"colspan="2"><strong>Association</strong><br />' + (feature.properties['Associatio'] !== null ? autolinker.link(feature.properties['Associatio'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="Lieu de di"colspan="2"><strong>Lieu de distribution</strong><br />' + (feature.properties['Lieu de di'] !== null ? autolinker.link(feature.properties['Lieu de di'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="Type de di"colspan="2"><strong>Type de distribution</strong><br />' + (feature.properties['Type de di'] !== null ? autolinker.link(feature.properties['Type de di'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="Ville"colspan="2"><strong>Ville</strong><br />' + (feature.properties['Ville'] !== null ? autolinker.link(feature.properties['Ville'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
-			});
-			layer.bindPopup(content, { maxHeight: 400 });
-        }
-
-        function style_Repas_23_0() {
-            return {
-                pane: 'pane_Repas_23',
+                pane: 'pane_Repas_20',
                 radius: 4.4,
                 opacity: 1,
                 color: 'rgba(51,124,17,1.0)',
@@ -1182,39 +1025,39 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Repas_23');
-        map.getPane('pane_Repas_23').style.zIndex = 423;
-        map.getPane('pane_Repas_23').style['mix-blend-mode'] = 'normal';
-        var layer_Repas_23 = new L.geoJson(json_Repas_23, {
+        map.createPane('pane_Repas_20');
+        map.getPane('pane_Repas_20').style.zIndex = 420;
+        map.getPane('pane_Repas_20').style['mix-blend-mode'] = 'normal';
+        var layer_Repas_20 = new L.geoJson(json_Repas_20, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Repas_23',
-            layerName: 'layer_Repas_23',
-            pane: 'pane_Repas_23',
-            onEachFeature: pop_Repas_23,
+            dataVar: 'json_Repas_20',
+            layerName: 'layer_Repas_20',
+            pane: 'pane_Repas_20',
+            onEachFeature: pop_Repas_20,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Repas_23_0(feature));
+                return L.circleMarker(latlng, style_Repas_20_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Repas_23);
-        map.addLayer(layer_Repas_23);
-        function pop_Colis_24(feature, layer) {
+        bounds_group.addLayer(layer_Repas_20);
+        map.addLayer(layer_Repas_20);
+        function pop_Epiceriessociales_21(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="NOM DE LA"colspan="2"><strong>Association</strong><br />' + (feature.properties['NOM DE LA'] !== null ? autolinker.link(feature.properties['NOM DE LA'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="NOM DE LA" colspan="2"><strong>Association</strong><br />' + (feature.properties['NOM DE LA'] !== null ? autolinker.link(String(feature.properties['NOM DE LA']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="LIEU DE DI"colspan="2"><strong>Lieu de distribution</strong><br />' + (feature.properties['LIEU DE DI'] !== null ? autolinker.link(feature.properties['LIEU DE DI'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="LIEU DE DI" colspan="2"><strong>Lieu de distribution</strong><br />' + (feature.properties['LIEU DE DI'] !== null ? autolinker.link(String(feature.properties['LIEU DE DI']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="ACTIVITE"colspan="2"><strong>Type de distribution</strong><br />' + (feature.properties['ACTIVITE'] !== null ? autolinker.link(feature.properties['ACTIVITE'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="ACTIVITE" colspan="2"><strong>Type de distribution</strong><br />' + (feature.properties['ACTIVITE'] !== null ? autolinker.link(String(feature.properties['ACTIVITE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="TERRITOIRE"colspan="2"><strong>Ville</strong><br />' + (feature.properties['TERRITOIRE'] !== null ? autolinker.link(feature.properties['TERRITOIRE'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="TERRITOIRE" colspan="2"><strong>Ville</strong><br />' + (feature.properties['TERRITOIRE'] !== null ? autolinker.link(String(feature.properties['TERRITOIRE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -1224,9 +1067,67 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Colis_24_0() {
+        function style_Epiceriessociales_21_0() {
             return {
-                pane: 'pane_Colis_24',
+                pane: 'pane_Epiceriessociales_21',
+                radius: 4.4,
+                opacity: 1,
+                color: 'rgba(35,35,148,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(10,25,231,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Epiceriessociales_21');
+        map.getPane('pane_Epiceriessociales_21').style.zIndex = 421;
+        map.getPane('pane_Epiceriessociales_21').style['mix-blend-mode'] = 'normal';
+        var layer_Epiceriessociales_21 = new L.geoJson(json_Epiceriessociales_21, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Epiceriessociales_21',
+            layerName: 'layer_Epiceriessociales_21',
+            pane: 'pane_Epiceriessociales_21',
+            onEachFeature: pop_Epiceriessociales_21,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Epiceriessociales_21_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Epiceriessociales_21);
+        map.addLayer(layer_Epiceriessociales_21);
+        function pop_Colis_22(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td class="visible-with-data" id="NOM DE LA" colspan="2"><strong>Association</strong><br />' + (feature.properties['NOM DE LA'] !== null ? autolinker.link(String(feature.properties['NOM DE LA']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="LIEU DE DI" colspan="2"><strong>Lieu de distribution </strong><br />' + (feature.properties['LIEU DE DI'] !== null ? autolinker.link(String(feature.properties['LIEU DE DI']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="ACTIVITE" colspan="2"><strong>Type de distribution</strong><br />' + (feature.properties['ACTIVITE'] !== null ? autolinker.link(String(feature.properties['ACTIVITE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="TERRITOIRE" colspan="2"><strong>Ville</strong><br />' + (feature.properties['TERRITOIRE'] !== null ? autolinker.link(String(feature.properties['TERRITOIRE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_Colis_22_0() {
+            return {
+                pane: 'pane_Colis_22',
                 radius: 4.4,
                 opacity: 1,
                 color: 'rgba(128,17,25,1.0)',
@@ -1240,45 +1141,130 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Colis_24');
-        map.getPane('pane_Colis_24').style.zIndex = 424;
-        map.getPane('pane_Colis_24').style['mix-blend-mode'] = 'normal';
-        var layer_Colis_24 = new L.geoJson(json_Colis_24, {
+        map.createPane('pane_Colis_22');
+        map.getPane('pane_Colis_22').style.zIndex = 422;
+        map.getPane('pane_Colis_22').style['mix-blend-mode'] = 'normal';
+        var layer_Colis_22 = new L.geoJson(json_Colis_22, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Colis_24',
-            layerName: 'layer_Colis_24',
-            pane: 'pane_Colis_24',
-            onEachFeature: pop_Colis_24,
+            dataVar: 'json_Colis_22',
+            layerName: 'layer_Colis_22',
+            pane: 'pane_Colis_22',
+            onEachFeature: pop_Colis_22,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_Colis_24_0(feature));
+                return L.circleMarker(latlng, style_Colis_22_0(feature));
             },
         });
-        bounds_group.addLayer(layer_Colis_24);
-        map.addLayer(layer_Colis_24);
+        bounds_group.addLayer(layer_Colis_22);
+        map.addLayer(layer_Colis_22);
+        function pop_CamionEpicerieSocialeItinrante_23(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(String(feature.properties['nom']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_CamionEpicerieSocialeItinrante_23_0() {
+            return {
+                pane: 'pane_CamionEpicerieSocialeItinrante_23',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/CamionEpicerieSocialeItinrante_23.svg',
+            iconSize: [34.199999999999996, 34.199999999999996]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CamionEpicerieSocialeItinrante_23');
+        map.getPane('pane_CamionEpicerieSocialeItinrante_23').style.zIndex = 423;
+        map.getPane('pane_CamionEpicerieSocialeItinrante_23').style['mix-blend-mode'] = 'normal';
+        var layer_CamionEpicerieSocialeItinrante_23 = new L.geoJson(json_CamionEpicerieSocialeItinrante_23, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CamionEpicerieSocialeItinrante_23',
+            layerName: 'layer_CamionEpicerieSocialeItinrante_23',
+            pane: 'pane_CamionEpicerieSocialeItinrante_23',
+            onEachFeature: pop_CamionEpicerieSocialeItinrante_23,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_CamionEpicerieSocialeItinrante_23_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CamionEpicerieSocialeItinrante_23);
+        function pop_AtelierdetransformationdeFruitsetLgumes_24(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td class="visible-with-data" id="Projet" colspan="2"><strong>Projet</strong><br />' + (feature.properties['Projet'] !== null ? autolinker.link(String(feature.properties['Projet']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_AtelierdetransformationdeFruitsetLgumes_24_0() {
+            return {
+                pane: 'pane_AtelierdetransformationdeFruitsetLgumes_24',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/AtelierdetransformationdeFruitsetLgumes_24.svg',
+            iconSize: [25.88142, 25.88142]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_AtelierdetransformationdeFruitsetLgumes_24');
+        map.getPane('pane_AtelierdetransformationdeFruitsetLgumes_24').style.zIndex = 424;
+        map.getPane('pane_AtelierdetransformationdeFruitsetLgumes_24').style['mix-blend-mode'] = 'normal';
+        var layer_AtelierdetransformationdeFruitsetLgumes_24 = new L.geoJson(json_AtelierdetransformationdeFruitsetLgumes_24, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AtelierdetransformationdeFruitsetLgumes_24',
+            layerName: 'layer_AtelierdetransformationdeFruitsetLgumes_24',
+            pane: 'pane_AtelierdetransformationdeFruitsetLgumes_24',
+            onEachFeature: pop_AtelierdetransformationdeFruitsetLgumes_24,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_AtelierdetransformationdeFruitsetLgumes_24_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_AtelierdetransformationdeFruitsetLgumes_24);
         function pop_BAM_25(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <td class="visible-with-data" id="Nom"colspan="2"><strong>Nom</strong><br />' + (feature.properties['Nom'] !== null ? autolinker.link(feature.properties['Nom'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Nom" colspan="2"><strong>Nom</strong><br />' + (feature.properties['Nom'] !== null ? autolinker.link(String(feature.properties['Nom']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Adresse"colspan="2"><strong>Adresse</strong><br />' + (feature.properties['Adresse'] !== null ? autolinker.link(feature.properties['Adresse'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Adresse" colspan="2"><strong>Adresse</strong><br />' + (feature.properties['Adresse'] !== null ? autolinker.link(String(feature.properties['Adresse']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Contact"colspan="2"><strong>Contact</strong><br />' + (feature.properties['Contact'] !== null ? autolinker.link(feature.properties['Contact'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Contact" colspan="2"><strong>Contact</strong><br />' + (feature.properties['Contact'] !== null ? autolinker.link(String(feature.properties['Contact']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Standard S"colspan="2"><strong>Standard siège</strong><br />' + (feature.properties['Standard S'] !== null ? autolinker.link(feature.properties['Standard S'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Standard S" colspan="2"><strong>Standard</strong><br />' + (feature.properties['Standard S'] !== null ? autolinker.link(String(feature.properties['Standard S']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td class="visible-with-data" id="Email"colspan="2"><strong>Email</strong><br />' + (feature.properties['Email'] !== null ? autolinker.link(feature.properties['Email'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td class="visible-with-data" id="Communes d"colspan="2"><strong>Communes desservies</strong><br />' + (feature.properties['Communes d'] !== null ? autolinker.link(feature.properties['Communes d'].toLocaleString()) : '') + '</td>\
+                        <td class="visible-with-data" id="Email" colspan="2"><strong>Email</strong><br />' + (feature.properties['Email'] !== null ? autolinker.link(String(feature.properties['Email']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -1326,11 +1312,11 @@
         map.addLayer(layer_BAM_25);
         var overlaysTree = [
             {label: '<img src="legend/BAM_25.png" /> BAM', layer: layer_BAM_25},
-            {label: '<img src="legend/Colis_24.png" /> Colis', layer: layer_Colis_24},
-            {label: '<img src="legend/Repas_23.png" /> Repas', layer: layer_Repas_23},
-            {label: '<img src="legend/Epiceriesociale_22.png" /> Epicerie sociale', layer: layer_Epiceriesociale_22},
-            {label: '<img src="legend/AtelierdetransformationdeFruitsetLgumes_21.png" />  Atelier de transformation de Fruits et Légumes', layer: layer_AtelierdetransformationdeFruitsetLgumes_21},
-            {label: '<img src="legend/CamionEpicerieSocialeItinrante_20.png" /> Camion Epicerie Sociale Itinérante', layer: layer_CamionEpicerieSocialeItinrante_20},
+            {label: '<img src="legend/AtelierdetransformationdeFruitsetLgumes_24.png" />  Atelier de transformation de Fruits et Légumes', layer: layer_AtelierdetransformationdeFruitsetLgumes_24},
+            {label: '<img src="legend/CamionEpicerieSocialeItinrante_23.png" /> Camion Epicerie Sociale Itinérante', layer: layer_CamionEpicerieSocialeItinrante_23},
+            {label: '<img src="legend/Colis_22.png" /> Colis', layer: layer_Colis_22},
+            {label: '<img src="legend/Epiceriessociales_21.png" /> Epiceries sociales', layer: layer_Epiceriessociales_21},
+            {label: '<img src="legend/Repas_20.png" /> Repas', layer: layer_Repas_20},
             {label: '<img src="legend/Communesavec30000personnesaccueillies_19.png" /> Communes avec + 30 000 personnes accueillies ', layer: layer_Communesavec30000personnesaccueillies_19},
             {label: '<img src="legend/Communesavec10000personnesaccueillies_18.png" /> Communes avec +10 000 personnes accueillies ', layer: layer_Communesavec10000personnesaccueillies_18},
             {label: '<img src="legend/Communesavec5000personnesaccueillies_17.png" /> Communes avec + 5 000 personnes accueillies ', layer: layer_Communesavec5000personnesaccueillies_17},
@@ -1450,15 +1436,15 @@
                         });
                     }
                 }
-        resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
+        resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_23,layer_AtelierdetransformationdeFruitsetLgumes_24]);
         map.on("zoomend", function(){
-            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_23,layer_AtelierdetransformationdeFruitsetLgumes_24]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_23,layer_AtelierdetransformationdeFruitsetLgumes_24]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_20,layer_AtelierdetransformationdeFruitsetLgumes_21]);
+            resetLabels([layer_Communes_2,layer_CamionEpicerieSocialeItinrante_23,layer_AtelierdetransformationdeFruitsetLgumes_24]);
         });
         </script>
     </body>
