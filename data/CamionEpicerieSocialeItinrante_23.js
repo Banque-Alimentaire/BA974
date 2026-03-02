@@ -1,1 +1,0 @@
-var json_CamionEpicerieSocialeItinrante_23 = {"type":"FeatureCollection","name":"CamionEpicerieSocialeItinrante_23","crs":{"type":"name","properties":{"name":"urn:ogc:def:crs:OGC:1.3:CRS84"}},"features":[{"type":"Feature","properties":{"nom":"Camion Epicerie Sociale Itinérante géré par le CCAS de St Pierre"},"geometry":{"type":"Point","coordinates":[55.477771,-21.342704]}}]}
